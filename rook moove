@@ -1,0 +1,77 @@
+#include <stdio.h>#include<string.h>#include <ctype.h> 
+char b[8][8];//globally declared
+int main(){
+    static char a[50];static int i,j,k,length,x,count;gets(a);length=strlen(a);
+    for(k=0;k<length;k++){
+        if(isalpha(a[k])) {b[i][j]=a[k];j++;}                       //to assign alphabets
+        else if(a[k]=='/') {j=0;i++;}                               //to check "/" to move next row 
+        while(isdigit(a[k])&&x<a[k]-48){b[i][j]='.';j++;x++;} x=0;} //to assign number of "."
+        //print board
+   /* for(i=0;i<8;i++){
+        for(j=0;j<8;j++){ printf("%c",b[i][j]);}printf("\n");}*/
+        //rookmove
+        printf("\n[");
+        for(i=0;i<8;i++){
+            for(j=0;j<8;j++){
+                if(b[i][j]=='R'){                                    //to chech rook location
+                    if(count!=0) printf(",");                        //to omit comma at last
+                position(i,j);
+                count++;
+            }
+            }
+        }printf("]");
+    return 0;
+}
+//function gets rook co-ordinates and print possible moves
+void position(int x,int y)
+{
+    static int i,j,up[7],down[7],left[7],right[7],k=0,l=0,m=0,n=0,c=0;
+    //above rook
+    for(i=x-1;i>=0;i--){
+        if(b[i][y]=='.')
+            up[k++]=i;
+            else
+                break;
+    }
+    //below rook
+    for(i=x+1;i<8;i++){
+        if(b[i][y]=='.')
+            down[l++]=i;
+            else
+                break;
+    }
+    //left to rook
+    for(j=y-1;j>=0;j--){
+        if(b[x][j]=='.')
+            left[m++]=j;
+            else
+                break;
+    }
+    //right to rook
+    for(j=y+1;j<8;j++){
+        if(b[x][j]=='.')
+            right[n++]=j;
+            else
+                break;
+    }
+    //above rook
+    for(i=k-1;i>=0&&k!=0;i--){
+        c=y+'a';
+        printf("%c%d%c%d,",c,8-x,c,8-up[i]);
+    }
+    //left to rook
+    for(i=m-1;i>=0&&m!=0;i--){
+        printf("%c%d%c%d,",c,8-x,'a'+left[i],x);
+    }
+    //right to rook
+    for(i=0;i<n&&n!=0;i++){
+        printf("%c%d%c%d,",c,8-x,'a'+right[i],x);
+    }
+    //down to rook
+    for(i=0;i<l;i++){
+        c=y+'a';
+        printf("%c%d%c%d",c,8-x,c,8-down[i]);
+        if(i!=l-1)
+        printf(",");
+    }
+   }
